@@ -1,7 +1,26 @@
-// src/components/UserDetailsForm.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const UserDetailsForm = ({ isOpen, onClose }) => {
+  const formRef = useRef();
+
+  const handleClickOutside = (event) => {
+    if (formRef.current && !formRef.current.contains(event.target)) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleSubmit = (event) => {
@@ -12,7 +31,7 @@ const UserDetailsForm = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-full md:w-3/4 lg:w-1/2 p-6">
+      <div ref={formRef} className="bg-white rounded-lg w-full md:w-3/4 lg:w-1/2 p-6">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
