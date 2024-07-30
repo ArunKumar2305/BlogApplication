@@ -4,6 +4,7 @@ import Header from './Header';
 import SearchBar from './Searchbar';
 import Card from './Card';
 import DashboardPage from '../pages/DashboardPage';
+import UserDetailsForm from './UserDetailsForm';
 
 
 const MainPage = () => {
@@ -15,6 +16,7 @@ const MainPage = () => {
 
 
   const [filteredServices, setFilteredServices] = useState(services);
+  const [isUserDetailsFormOpen, setIsUserDetailsFormOpen] = useState(false);
 
 
   const handleSearch = (query) => {
@@ -25,19 +27,26 @@ const MainPage = () => {
   };
 
 
-  useEffect(() => {
-    // Fetch services from an API and set the state
-    // setServices(fetchedServices);
-    // setFilteredServices(fetchedServices);
-  }, []);
+  // useEffect(() => {
+  //   // Fetch services from an API and set the state
+  //   // setServices(fetchedServices);
+  //   // setFilteredServices(fetchedServices);
+  // }, []);
+  const handleProfileClick = () => {
+    setIsUserDetailsFormOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setIsUserDetailsFormOpen(false);
+  };
 
 
   return (
-    <div className="flex">
-      <DashboardPage />
-      <Sidebar />
+    <div className="flex h-screen">
+      <DashboardPage  onProfileClick={handleProfileClick}/>
+      {/* <Sidebar /> */}
       <div className="flex-1 flex flex-col">
-        <Header />
+        {/* <Header /> */}
         <SearchBar onSearch={handleSearch} />
         <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {filteredServices.map((service, index) => (
@@ -45,13 +54,8 @@ const MainPage = () => {
           ))}
         </div>
       </div>
+      <UserDetailsForm isOpen={isUserDetailsFormOpen} onClose={handleCloseForm} />
     </div>
   );
 };
-
-
 export default MainPage;
-
-
-
-

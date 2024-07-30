@@ -9,10 +9,10 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className="w-full p-4 bg-white shadow-md">
+    <div className="flex justify-center p-4 bg-white mt-[8px] ">
       <input
         type="text"
-        className="w-full p-2 border border-gray-300 rounded-md"
+        className="w-[650px] p-2 border border-gray-300 rounded-md"
         placeholder="Search services or profiles..."
         value={query}
         onChange={handleSearch}
