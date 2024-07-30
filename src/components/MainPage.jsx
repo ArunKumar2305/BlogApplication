@@ -34,7 +34,7 @@ const MainPage = () => {
 
   return (
     <div className="flex">
-      <DashboardPage/>
+      <DashboardPage />
       <Sidebar />
       <div className="flex-1 flex flex-col">
         <Header />
